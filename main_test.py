@@ -36,70 +36,75 @@ def startup():
 def main():
     if request.method=='POST':
 
-        results = [[14.5014303,-90.4886139],
-                    2,
-                    'Guatemala, Guatemala City',
-                    'oakland mall guatemala']
+        try:
+            results = [[14.5014303,-90.4886139],
+                        2,
+                        'Guatemala, Guatemala City',
+                        'oakland mall guatemala']
 
 
 
-        #inicializo GeoCage para localizar input del usuario
-        #input_user = request.form['input_usuario']
-        #results = geocoder.geocode(input_user)
-        #kmeters = 2
-        #fcoordinates=[]
-        #coordinates=[]
-        #coordinates.append(results[0]['geometry']['lat']) 
-        #coordinates.append(results[0]['geometry']['lng'])
-        #country = results[0]['components']['country']
-        #city=results[0]['components']['city']
-        #localidad = country+', '+city
-        #fcoordinates.append(coordinates)
-        #fcoordinates.append(kmeters)
-        #fcoordinates.append(localidad)
-        #fcoordinates.append(input_user)
+            #inicializo GeoCage para localizar input del usuario
+            #input_user = request.form['input_usuario']
+            #results = geocoder.geocode(input_user)
+            #kmeters = 2
+            #fcoordinates=[]
+            #coordinates=[]
+            #coordinates.append(results[0]['geometry']['lat']) 
+            #coordinates.append(results[0]['geometry']['lng'])
+            #country = results[0]['components']['country']
+            #city=results[0]['components']['city']
+            #localidad = country+', '+city
+            #fcoordinates.append(coordinates)
+            #fcoordinates.append(kmeters)
+            #fcoordinates.append(localidad)
+            #fcoordinates.append(input_user)
 
-        #se separa la string
-        coordenadas = results
-        latlong = coordenadas[0]
-        radio = coordenadas[1]
-        localidad = coordenadas[2]
-        direccion_solicitud = coordenadas[3]
+            #se separa la string
+            coordenadas = results
+            latlong = coordenadas[0]
+            radio = coordenadas[1]
+            localidad = coordenadas[2]
+            direccion_solicitud = coordenadas[3]
 
-        gymy_modelo = gymy.copy()
-        gymy_modelo['distance'] = gymy_modelo.latlong.apply(lambda x , y=latlong : distance.distance(x, y).km)
-        display_df = gymy_modelo[gymy_modelo.distance<radio]
-        display_df.reset_index(inplace=True)
-        n_gyms = len(display_df)
+            gymy_modelo = gymy.copy()
+            gymy_modelo['distance'] = gymy_modelo.latlong.apply(lambda x , y=latlong : distance.distance(x, y).km)
+            display_df = gymy_modelo[gymy_modelo.distance<radio]
+            display_df.reset_index(inplace=True)
+            n_gyms = len(display_df)
 
-        #creating map object
-        tooltip = 'Localidad solicitada: {} \n {}'.format(direccion_solicitud,localidad)
-        mapa=folium.Map(latlong, zoom_start=15, width='100%', height='70%')
-        folium.Marker(latlong, tooltip=tooltip, icon=folium.Icon()).add_to(mapa)
-        for i in trange(len(display_df)):
-            popup =''
+            #creating map object
+            tooltip = 'Localidad solicitada: {} \n {}'.format(direccion_solicitud,localidad)
+            mapa=folium.Map(latlong, zoom_start=15, width='100%', height='70%')
+            folium.Marker(latlong, tooltip=tooltip, icon=folium.Icon()).add_to(mapa)
+            for i in range(len(display_df)):
+                popup =''
 
-            if str(display_df.phone[i]) != 'nan' :
-                popup += 'Telefono: ' + str(display_df.phone[i])
+                if str(display_df.phone[i]) != 'nan' :
+                    popup += 'Telefono: ' + str(display_df.phone[i])
 
-            if str(display_df.address[i]) != 'nan' :
-                popup += ' Direccion: '+str(display_df.address[i])
+                if str(display_df.address[i]) != 'nan' :
+                    popup += ' Direccion: '+str(display_df.address[i])
 
-            if str(display_df.web[i]) != 'nan' :
-                popup += ' Web: '+str(display_df.web[i])
+                if str(display_df.web[i]) != 'nan' :
+                    popup += ' Web: '+str(display_df.web[i])
 
-            folium.Marker([display_df.lat[i],display_df.long[i]], popup=popup,
-                            tooltip = display_df.names[i], icon = folium.Icon(color='red')).add_to(mapa)   
-        
-        mapa.save('templates/{}.html'.format(direccion_solicitud))
+                folium.Marker([display_df.lat[i],display_df.long[i]], popup=popup,
+                                tooltip = display_df.names[i], icon = folium.Icon(color='red')).add_to(mapa)   
+            
+            mapa.save('templates/{}.html'.format(direccion_solicitud))
 
-        devuelta =  'Existen {} GYMYs cerca de {}'.format(n_gyms,direccion_solicitud)
+            devuelta =  'Existen {} GYMYs cerca de {}'.format(n_gyms,direccion_solicitud)
 
-        #agrega el jinja de block al html de folium
-        with open('templates/MapaFinal.html', 'a') as f:
-            f.write('\n{% block content %} {% endblock %}')
+            #agrega el jinja de block al html de folium
+            with open('templates/{}.html'.format(direccion_solicitud), 'a') as f:
+                f.write('\n{% block content %} {% endblock %}')
 
-        return render_template('index.html' , gyms_template = devuelta , mapatrue = '{}.html'.format(direccion_solicitud)) 
+            return render_template('index.html' , gyms_template = devuelta , mapatrue = '{}.html'.format(direccion_solicitud)) 
+
+        except:
+            devuelta = 'Dirección Inválida. Prueba con otra'
+            return render_template('index.html' , gyms_template = devuelta , mapatrue = 'nomapa.html')
     else:
 
         return render_template('index.html', gyms_template = '', mapatrue = 'nomapa.html') 
