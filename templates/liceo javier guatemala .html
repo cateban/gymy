@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<head>    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://rawcdn.githack.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css"/>
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_07cb063e2e974bb7a9c86a7487e932df {
+                    position: relative;
+                    width: 100.0%;
+                    height: 70.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+            </style>
+        
+</head>
+<body>    
+    
+            <div class="folium-map" id="map_07cb063e2e974bb7a9c86a7487e932df" ></div>
+        
+</body>
+<script>    
+    
+            var map_07cb063e2e974bb7a9c86a7487e932df = L.map(
+                "map_07cb063e2e974bb7a9c86a7487e932df",
+                {
+                    center: [14.5847618, -90.5611083],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 15,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_89eb9c00ad344f90833ccc7a22e9bbbf = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_07cb063e2e974bb7a9c86a7487e932df);
+        
+    
+            var marker_b9f026ca58db4723b4449e7562b93d14 = L.marker(
+                [14.5847618, -90.5611083],
+                {}
+            ).addTo(map_07cb063e2e974bb7a9c86a7487e932df);
+        
+    
+            var icon_08e6d1d0a87a48aa80a6bb5b9b45abdd = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_b9f026ca58db4723b4449e7562b93d14.setIcon(icon_08e6d1d0a87a48aa80a6bb5b9b45abdd);
+        
+    
+            marker_b9f026ca58db4723b4449e7562b93d14.bindTooltip(
+                `<div>
+                     Location you chose: liceo javier guatemala  
+ Guatemala, Villa Nueva
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_bd4564d5254d4dbea45914f33d07a17c = L.marker(
+                [14.58745, -90.56182],
+                {}
+            ).addTo(map_07cb063e2e974bb7a9c86a7487e932df);
+        
+    
+            var icon_05d8a820009f4b2a872d0f34bf3d1bda = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_bd4564d5254d4dbea45914f33d07a17c.setIcon(icon_05d8a820009f4b2a872d0f34bf3d1bda);
+        
+    
+        var popup_f7af304713014465991fcee0c959421e = L.popup({"maxWidth": 2650});
+
+        
+            var i_frame_ec5f5153b65a4a1faacca9ac1eb6ecc2 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICAgICAgICAgICAgICA8Zm9udCBmYWNlID0gVmVyZGFuYSBzaXplID0gIjEiPiA8bGFiZWwgPjxiPlhzcG9ydCBGaXRuZXNzIENlbnRlcjwvYj48L2xhYmVsPiA8YnI+IDwvZm9udD4KICAgICAgICAgICAgICAgICAgICA8cD4KICAgICAgICAgICAgICAgICAgICA8Zm9udCBmYWNlPSBWZXJkYW5hIHNpemUgPSAiMSI+PGxhYmVsPjxiPiBUZWzDqWZvbm86PC9iPiAyNDc2OTg0MTwvbGFiZWw+IDxicj4KICAgICAgICAgICAgICAgICAgICA8bGFiZWw+PGI+RGlyZWNjacOzbjo8L2I+IENhbHouIEFndWlsYXIgQmF0cmVzLCAzNy05NSBab25hIDEyPC9sYWJlbD4gPGJyPgogICAgICAgICAgICAgICAgICAgIDxsYWJlbD48Yj5XZWI6PC9iPiBodHRwczovL3d3dy5mYWNlYm9vay5jb20veHNwb3J0Zml0bmVzc2NlbnRlcjwvbGFiZWw+IDxicj4KICAgICAgICAgICAgICAgICAgICA8bGFiZWw+PGI+Q2F0ZWdvcsOtYXM6PC9iPlBlc2FzLCBDcm9zc2ZpdDwvbGFiZWw+CiAgICAgICAgICAgICAgICAgICAgPC9mb250PgogICAgICAgICAgICAgICAgICAgICAgICA8L3A+CiAgICAgICAgICAgICAgICAgICAg" width="250" style="border:none !important;" height="150"></iframe>`)[0];
+            popup_f7af304713014465991fcee0c959421e.setContent(i_frame_ec5f5153b65a4a1faacca9ac1eb6ecc2);
+        
+
+        marker_bd4564d5254d4dbea45914f33d07a17c.bindPopup(popup_f7af304713014465991fcee0c959421e)
+        ;
+
+        
+    
+    
+            marker_bd4564d5254d4dbea45914f33d07a17c.bindTooltip(
+                `<div>
+                     Xsport Fitness Center
+                 </div>`,
+                {"sticky": true}
+            );
+        
+</script>

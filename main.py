@@ -16,9 +16,9 @@ def token(tokenfile):
         t=f.readlines()[0].split('\n')[0]
     return t
 
-def filtro(string,user_input):
+def filtro(string,form_user_input):
     for s in string.split(', '):
-        if s in user_input:
+        if s in form_user_input:
             return True
     return False
 
@@ -27,92 +27,99 @@ def filtro(string,user_input):
 def startup():
     global gymy
     gymy = pd.read_csv('csv/gymy_final.csv')
+    #gymy = pd.read_csv(PATH+'/data/gymy_final.csv', delimiter =',') -> For pythonanywhere
     gymy['latlong'] = list(zip(gymy.lat, gymy.long))
 
 
 @app.route('/', methods = ['POST','GET'])
 def main():
     if request.method=='POST':
-        try:
-            #inicializo GeoCage para localizar input del usuario
-            tokengeo = token('geocagetoken.txt')
-            geocoder = OpenCageGeocode(tokengeo)
-            input_user = request.form['input_usuario']
-            results = geocoder.geocode(input_user)
-            kmeters = 2
-            fcoordinates=[]
-            coordinates=[]
-            coordinates.append(results[0]['geometry']['lat']) 
-            coordinates.append(results[0]['geometry']['lng'])
-            country = results[0]['components']['country']
-            city=results[0]['components']['city']
-            localidad = country+', '+city
-            fcoordinates.append(coordinates)
-            fcoordinates.append(kmeters)
-            fcoordinates.append(localidad)
-            fcoordinates.append(input_user)
+    #try:
+        filtro_usuario = request.form.get('dropdown')
+        input_user = request.form['input_usuario']
+        #inicializo GeoCage para localizar input del usuario
+        tokengeo = token('geocagetoken.txt')
+        #tokengeo = token(PATH+'/geocagetoken.txt') -> For pythonanywhere
+        geocoder = OpenCageGeocode(tokengeo)
+        results = geocoder.geocode(input_user)
+        kmeters = 2
+        fcoordinates=[]
+        coordinates=[]
+        coordinates.append(results[0]['geometry']['lat']) 
+        coordinates.append(results[0]['geometry']['lng'])
+        country = results[0]['components']['country']
+        city=results[0]['components']['city']
+        localidad = country+', '+city
+        fcoordinates.append(coordinates)
+        fcoordinates.append(kmeters)
+        fcoordinates.append(localidad)
+        fcoordinates.append(input_user)
 
-            #se separa la string
-            coordenadas = fcoordinates
-            latlong = coordenadas[0]
-            radio = coordenadas[1]
-            localidad = coordenadas[2]
-            direccion_solicitud = coordenadas[3]
+        #se separa la string
+        latlong = fcoordinates[0]
+        radio = fcoordinates[1]
+        localidad = fcoordinates[2]
+        direccion_solicitud = fcoordinates[3]
 
-            user_filter = 'Yoga'
+        
 
-            gymy_modelo = gymy.copy()
+        gymy_modelo = gymy.copy()
 
-            if user_filter != 'Todo':
-                gymy_modelo['filtro'] = gymy.category.apply(filtro, user_input=user_filter)
-            else:
-                gymy_modelo['filtro'] = True
+        if filtro_usuario != 'Todas las categorías':
+            gymy_modelo['filtro'] = gymy_modelo.category.apply(filtro, form_user_input=filtro_usuario)
+        else:
+            gymy_modelo['filtro'] = True
 
-            gymy_modelo = gymy_modelo[gymy_modelo.filtro==True]
+        gymy_modelo = gymy_modelo[gymy_modelo.filtro==True]
 
-            gymy_modelo['distance'] = gymy_modelo.latlong.apply(lambda x , y=latlong : distance.distance(x, y).km)
-            display_df = gymy_modelo[gymy_modelo.distance<radio]
-            display_df.reset_index(inplace=True)
-            n_gyms = len(display_df)
+        gymy_modelo['distance'] = gymy_modelo.latlong.apply(lambda x , y=latlong : distance.distance(x, y).km)
+        display_df = gymy_modelo[gymy_modelo.distance<radio]
+        display_df.reset_index(inplace=True)
+        n_gyms = len(display_df)
 
-            #creating map object
-            tooltip = 'Location you chose: {} \n {}'.format(direccion_solicitud,localidad)
-            mapa=folium.Map(latlong, zoom_start=15, width='100%', height='70%')
-            folium.Marker(latlong, tooltip=tooltip, icon=folium.Icon()).add_to(mapa)
-            for i in range(len(display_df)):
-                htmlpopup="""
-                        <font face = Verdana size = "1"> <label ><b>{}</b></label> <br> </font>
-                        <p>
-                        <font face= Verdana size = "1"><label><b> Teléfono:</b> {}</label> <br>
-                        <label><b>Dirección:</b> {}</label> <br>
-                        <label><b>Web:</b> {}</label> <br>
-                        </font>
-                            </p>
-                        """.format(display_df.names[i],display_df.phone[i],display_df.address[i],display_df.web[i])
+        #creating map object
+        tooltip = 'Location you chose: {} \n {}'.format(direccion_solicitud,localidad)
+        mapa=folium.Map(latlong, zoom_start=15, width='100%', height='70%')
+        folium.Marker(latlong, tooltip=tooltip, icon=folium.Icon()).add_to(mapa)
+        for i in range(len(display_df)):
+            htmlpopup="""
+                    <font face = Verdana size = "1"> <label ><b>{}</b></label> <br> </font>
+                    <p>
+                    <font face= Verdana size = "1"><label><b> Teléfono:</b> {}</label> <br>
+                    <label><b>Dirección:</b> {}</label> <br>
+                    <label><b>Web:</b> {}</label> <br>
+                    <label><b>Categorías:</b>{}</label>
+                    </font>
+                        </p>
+                    """.format(display_df.names[i],display_df.phone[i],display_df.address[i],display_df.web[i],display_df.category[i])
 
-                        
-                iframe = folium.IFrame(html=htmlpopup, width=200, height=100)
-                popup = folium.Popup(iframe, max_width=2650)
+                    
+            iframe = folium.IFrame(html=htmlpopup, width=250, height=150)
+            popup = folium.Popup(iframe, max_width=2650)
 
-                folium.Marker([display_df.lat[i],display_df.long[i]], popup=popup, 
-                            tooltip = display_df.names[i], icon = folium.Icon(color='red')).add_to(mapa)
-            mapa.save('templates/{}.html'.format(direccion_solicitud))
+            folium.Marker([display_df.lat[i],display_df.long[i]], popup=popup, 
+                        tooltip = display_df.names[i], icon = folium.Icon(color='red')).add_to(mapa)
+        mapa.save('templates/{}.html'.format(direccion_solicitud))
+        #mapa.save(PATH+'/templates/{}.html'.format(direccion_solicitud))  -> For pythonanywhere
 
-            devuelta =  'Existen {} GYMYs cerca de {}'.format(n_gyms,direccion_solicitud)
+        devuelta =  'Existen {} GYMYs cerca de {}'.format(n_gyms,direccion_solicitud)
 
-            #agrega el jinja de block al html de folium
-            with open('templates/MapaFinal.html', 'a') as f:
-                f.write('\n{% block content %} {% endblock %}')
+        #agrega el jinja de block al html de folium
+        with open('templates/MapaFinal.html', 'a') as f:
+        #with open(PATH+'/templates/{}.html'.format(direccion_solicitud), 'a') as f: -> For pythonanywhere
+            f.write('\n{% block content %} {% endblock %}')
 
-            return render_template('index.html' , gyms_template = devuelta, mapatrue = '{}.html'.format(direccion_solicitud))
+        return render_template('index.html' , gyms_template = devuelta, 
+                                mapatrue = '{}.html'.format(direccion_solicitud), dropdown=filtro_usuario)
 
 
-        except:
-            devuelta = 'Dirección Inválida. Prueba con otra'
-            return render_template('index.html' , gyms_template = devuelta , mapatrue = 'nomapa.html')
+    #except:
+        #devuelta = 'Dirección Inválida. Prueba con otra'
+        #return render_template('index.html' , gyms_template = devuelta , mapatrue = 'nomapa.html',
+                                #user_filter='Todas las categorías')
 
     else:
-        return render_template('index.html', gyms_template = '', mapatrue = 'nomapa.html') 
+        return render_template('index.html', gyms_template = '', mapatrue = 'nomapa.html', dropdown='Todas las categorías')
  
 
 

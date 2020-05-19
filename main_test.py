@@ -100,14 +100,14 @@ def main():
             with open('templates/{}.html'.format(direccion_solicitud), 'a') as f:
                 f.write('\n{% block content %} {% endblock %}')
 
-            return render_template('index.html' , gyms_template = devuelta , mapatrue = '{}.html'.format(direccion_solicitud)) 
+            return render_template('in_test.html' , gyms_template = devuelta , mapatrue = '{}.html'.format(direccion_solicitud)) 
 
         except:
             devuelta = 'Dirección Inválida. Prueba con otra'
-            return render_template('index.html' , gyms_template = devuelta , mapatrue = 'nomapa.html')
+            return render_template('in_test.html' , gyms_template = devuelta , mapatrue = 'nomapa.html')
     else:
 
-        return render_template('index.html', gyms_template = '', mapatrue = 'nomapa.html') 
+        return render_template('in_test.html', gyms_template = '', mapatrue = 'nomapa.html',user_filter='Todas las Categorías') 
 
 
 if __name__=='__main__':

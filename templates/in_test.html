@@ -16,7 +16,6 @@ html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
   left: 50%;
   transform: translate(-50%, -50%)}
 
-
 </style>
 <body>
 
@@ -48,24 +47,23 @@ html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
               <label>¿Por donde querés hacer ejercicio?</label> 
                 <p>
                 <input class="w3-input w3-border-0 w3-round-large" type="text"  placeholder="Ingresa una zona" id="input_usuario"
-                            name="input_usuario" value="{{input_usuario}}"><br>
-                </p>
-                <p>
-                    <div class="box" style="width:200px;">
-                        <select class ="dropdown" name='dropdown'>
-                            <option value="{{dropdown}}" selected>{{dropdown}}</option>
-                            <option>Pesas</option>
-                            <option>Crossfit</option>
-                            <option>Funcional</option>
-                            <option>Baile</option>
-                            <option>Artes Marciales</option>
-                            <option>Natación</option>
-                            <option>Pilates</option>
-                            <option>Yoga</option>
-                            <option>Otros</option>
-                        </select>
+                            name="input_usuario" value="{{input_usuario}}">
 
-                      </div>
+                            <div class="box" style="width:200px;">
+                                <select>
+                                    <option value="{{user_filter}}" selected>{{user_filter}}</option>
+                                    <option value="0">Todas las categorías</option>
+                                    <option value="1">Pesas</option>
+                                    <option value="2">Crossfit</option>
+                                    <option value="3">Funcional</option>
+                                    <option value="4">Baile</option>
+                                    <option value="5">Artes Marciales</option>
+                                    <option value="6">Natación</option>
+                                    <option value="7">Pilates</option>
+                                    <option value="8">Yoga</option>
+                                    <option value="9">Otros</option>
+                                </select>
+                              </div>
 
                 </p>
 
@@ -75,6 +73,7 @@ html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
 
                 <label>{{gyms_template}}</label>
             </form>
+            
 
     </div>
 
