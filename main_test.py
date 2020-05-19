@@ -36,10 +36,12 @@ def startup():
 def main():
     if request.method=='POST':
 
-        results = [[14.5989133,-90.5072073],
+        results = [[14.5014303,-90.4886139],
                     2,
                     'Guatemala, Guatemala City',
                     'oakland mall guatemala']
+
+
 
         #inicializo GeoCage para localizar input del usuario
         #input_user = request.form['input_usuario']
