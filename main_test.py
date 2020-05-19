@@ -26,7 +26,7 @@ def token(tokenfile):
 @app.before_first_request
 def startup():
     global gymy
-    gymy = pd.read_csv('csv/gymy_latlong.csv')
+    gymy = pd.read_csv('csv/gymy_final.csv')
     gymy.drop(columns='Unnamed: 0', inplace=True)
     gymy['latlong'] = list(zip(gymy.lat, gymy.long))
 
