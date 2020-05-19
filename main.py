@@ -16,6 +16,12 @@ def token(tokenfile):
         t=f.readlines()[0].split('\n')[0]
     return t
 
+def filtro(string,user_input):
+    for s in string.split(', '):
+        if s in user_input:
+            return True
+    return False
+
 #antes del primer request se cargan los datos
 @app.before_first_request
 def startup():
@@ -53,7 +59,17 @@ def main():
             localidad = coordenadas[2]
             direccion_solicitud = coordenadas[3]
 
+            user_filter = 'Yoga'
+
             gymy_modelo = gymy.copy()
+
+            if user_filter != 'Todo':
+                gymy_modelo['filtro'] = gymy.category.apply(filtro, user_input=user_filter)
+            else:
+                gymy_modelo['filtro'] = True
+
+            gymy_modelo = gymy_modelo[gymy_modelo.filtro==True]
+
             gymy_modelo['distance'] = gymy_modelo.latlong.apply(lambda x , y=latlong : distance.distance(x, y).km)
             display_df = gymy_modelo[gymy_modelo.distance<radio]
             display_df.reset_index(inplace=True)
@@ -67,12 +83,13 @@ def main():
                 htmlpopup="""
                         <font face = Verdana size = "1"> <label ><b>{}</b></label> <br> </font>
                         <p>
-                        <font face= Verdana size = "1"><label><b> Telefono:</b> {}</label> <br>
-                        <label><b>Direccion:</b> {}</label> <br>
+                        <font face= Verdana size = "1"><label><b> Teléfono:</b> {}</label> <br>
+                        <label><b>Dirección:</b> {}</label> <br>
                         <label><b>Web:</b> {}</label> <br>
                         </font>
                             </p>
                         """.format(display_df.names[i],display_df.phone[i],display_df.address[i],display_df.web[i])
+
                         
                 iframe = folium.IFrame(html=htmlpopup, width=200, height=100)
                 popup = folium.Popup(iframe, max_width=2650)
