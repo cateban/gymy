@@ -77,41 +77,50 @@ def main():
             display_df.reset_index(inplace=True)
             n_gyms = len(display_df)
 
-            #creating map object
-            tooltip = 'Location you chose: {} \n {}'.format(direccion_solicitud,localidad)
-            mapa=folium.Map(latlong, zoom_start=15, width='100%', height='70%')
-            folium.Marker(latlong, tooltip=tooltip, icon=folium.Icon()).add_to(mapa)
-            for i in range(len(display_df)):
-                htmlpopup="""
-                        <font face = Verdana size = "1"> <label ><b>{}</b></label> <br> </font>
-                        <p>
-                        <font face= Verdana size = "1"><label><b> Teléfono:</b> {}</label> <br>
-                        <label><b>Dirección:</b> {}</label> <br>
-                        <label><b>Web:</b> {}</label> <br>
-                        <label><b>Categorías: </b>{}</label>
-                        </font>
-                            </p>
-                        """.format(display_df.names[i],display_df.phone[i],display_df.address[i],
-                                display_df.web[i],display_df.category[i])
+            if n_gyms>0:
+                #creating map object
+                tooltip = 'Location you chose: {} \n {}'.format(direccion_solicitud,localidad)
+                mapa=folium.Map(latlong, zoom_start=15, width='100%', height='70%')
+                folium.Marker(latlong, tooltip=tooltip, icon=folium.Icon()).add_to(mapa)
+                for i in range(len(display_df)):
+                    htmlpopup="""
+                            <font face = Verdana size = "1"> <label ><b>{}</b></label> <br> </font>
+                            <p>
+                            <font face= Verdana size = "1"><label><b> Teléfono:</b> {}</label> <br>
+                            <label><b>Dirección:</b> {}</label> <br>
+                            <label><b>Web:</b> {}</label> <br>
+                            <label><b>Categorías: </b>{}</label>
+                            </font>
+                                </p>
+                            """.format(display_df.names[i],display_df.phone[i],display_df.address[i],
+                                    display_df.web[i],display_df.category[i])
 
-                        
-                iframe = folium.IFrame(html=htmlpopup, width=225, height=125)
-                popup = folium.Popup(iframe)
+                            
+                    iframe = folium.IFrame(html=htmlpopup, width=225, height=125)
+                    popup = folium.Popup(iframe)
 
-                folium.Marker([display_df.lat[i],display_df.long[i]], popup=popup, 
-                            tooltip = display_df.names[i], icon = folium.Icon(color='red')).add_to(mapa)
-            mapa.save('templates/{}.html'.format(direccion_solicitud))
-            #mapa.save(PATH+'/templates/{}.html'.format(direccion_solicitud))  -> For pythonanywhere
+                    folium.Marker([display_df.lat[i],display_df.long[i]], popup=popup, 
+                                tooltip = display_df.names[i], icon = folium.Icon(color='red')).add_to(mapa)
+                mapa.save('templates/{}.html'.format(direccion_solicitud))
+                #mapa.save(PATH+'/templates/{}.html'.format(direccion_solicitud))  -> For pythonanywhere
 
-            devuelta =  'Existen {} GYMYs cerca de {}'.format(n_gyms,direccion_solicitud)
+                devuelta =  'Existen {} GYMYs cerca de {}'.format(n_gyms,direccion_solicitud)
 
-            #agrega el jinja de block al html de folium
-            with open('templates/MapaFinal.html', 'a') as f:
-            #with open(PATH+'/templates/{}.html'.format(direccion_solicitud), 'a') as f: -> For pythonanywhere
-                f.write('\n{% block content %} {% endblock %}')
+                #agrega el jinja de block al html de folium
+                with open('templates/{}.html'.format(direccion_solicitud), 'a') as f:
+                #with open(PATH+'/templates/{}.html'.format(direccion_solicitud), 'a') as f: -> For pythonanywhere
+                    f.write('\n{% block content %} {% endblock %}')
 
-            return render_template('index.html' , gyms_template = devuelta, 
-                                    mapatrue = '{}.html'.format(direccion_solicitud), dropdown=filtro_usuario)
+                return render_template('index.html' , gyms_template = devuelta, 
+                                        mapatrue = '{}.html'.format(direccion_solicitud), dropdown=filtro_usuario)
+            
+            else:
+                devuelta = 'No hay Gymys cerca'
+                return render_template('index.html' , gyms_template = devuelta , mapatrue = 'nomapa.html',
+                                    dropdown='Todas las categorías')
+
+
+                
 
 
         except:

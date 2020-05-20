@@ -6,29 +6,25 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <style>
-html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
-.w3-tag, .fa {cursor:pointer}
-.w3-tag {height:15px;width:15px;padding:0;margin-top:6px}
-.box {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%)}
-
-
+    html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
+    .w3-tag, .fa {cursor:pointer}
+    .w3-tag {height:15px;width:15px;padding:0;margin-top:6px}
+    .box {position: relative; top: 50%; left: 50%; transform: translate(-50%, -50%)}
 </style>
+
 <body>
 
 <!-- Links (sit on top) -->
 <div class="w3-top">
     <div class="w3-row w3-large w3-light-grey">
         <div class="w3-col s3">
-            <a href="#" class="w3-button w3-block">Home</a>
+            <a href="#" class="w3-button w3-block">Inicio</a>
         </div>
 
         <div class="w3-col s3">
-            <a href="#plans" class="w3-button w3-block">Plans</a>
+            <a href="#plans" class="w3-button w3-block">Planes</a>
         </div>
     </div>
 </div>
@@ -39,60 +35,112 @@ html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
     <div class="w3-panel">
         <h1><b>GYMY</b></h1>
         <h2>No más excusas.</h2>
-
     </div>
 
     <div class="w3-center w3-padding-64">
-
-            <form class="w3-container w3-card-4 w3-light-grey" id='submit_params' method="POST" action="{{ url_for('main') }}">              
-              <label>¿Por donde querés hacer ejercicio?</label> 
-                <p>
+        <form class="w3-container w3-card-4 w3-light-grey" id='submit_params' method="POST" action="{{ url_for('main') }}">              
+            <label>¿Por donde querés hacer ejercicio?</label> 
+            <p>
                 <input class="w3-input w3-border-0 w3-round-large" type="text"  placeholder="Ingresa una zona" id="input_usuario"
-                            name="input_usuario" value="{{input_usuario}}"><br>
-                </p>
-                <p>
-                    <div class="box" style="width:200px;">
-                        <select class ="dropdown" name='dropdown'>
-                            <option value="{{dropdown}}" selected>{{dropdown}}</option>
-                            <option>Todas las categorías</option>
-                            <option>Pesas</option>
-                            <option>Crossfit</option>
-                            <option>Funcional</option>
-                            <option>Baile</option>
-                            <option>Artes Marciales</option>
-                            <option>Natación</option>
-                            <option>Pilates</option>
-                            <option>Yoga</option>
-                            <option>Otros</option>
-                        </select>
-
-                      </div>
-
-                </p>
-
-                <p>
-                    <button class="w3-button w3-black w3-round-large" type="submit">¡Buscame un gymy!</button>
-                </p>
-
-                <label>{{gyms_template}}</label>
-            </form>
-
+                        name="input_usuario" value="{{input_usuario}}"><br>
+            </p>
+            <p>
+                <div class="box" style="width:200px;">
+                    <select class ="dropdown" name='dropdown'>
+                        <option value="{{dropdown}}" selected>{{dropdown}}</option>
+                        <option>Todas las categorías</option>
+                        <option>Pesas</option>
+                        <option>Crossfit</option>
+                        <option>Funcional</option>
+                        <option>Baile</option>
+                        <option>Artes Marciales</option>
+                        <option>Natación</option>
+                        <option>Pilates</option>
+                        <option>Yoga</option>
+                        <option>Otros</option>
+                    </select>
+                    </div>
+            </p>
+            <p>
+                <button class="w3-button w3-black w3-round-large" type="submit">¡Buscame un gymy!</button>
+            </p>
+            <label>{{gyms_template}}</label>
+        </form>
     </div>
-
 </div>
 
 {% extends mapatrue %} 
 {% block content %}
 
+<!-- Grid -->
+<div class="w3-row-padding" id="plans">
+    <div class="w3-center w3-padding-64">
+        <h3>Planes y Precios</h3>
+        <p>Elige el plan que se ajuste a tus necesidades</p>
+    </div>
+
+    <div class="w3-third w3-margin-bottom">
+        <ul class="w3-ul w3-border w3-center w3-hover-shadow">
+            <li class="w3-black w3-xlarge w3-padding-32">Active</li>
+            <li class="w3-padding-16"><b>3 clases</b> a la semana</li>
+            <li class="w3-padding-16"><b>Aseoría</b> en nutrición</li>
+            <li class="w3-padding-16"><b>Asesoría</b> en suplementos</li>
+            <li class="w3-padding-16">Reprograma tus clases</li>
+            <li class="w3-padding-16">
+                <h2 class="w3-wide">Q200</h2>
+                <span class="w3-opacity">Al Mes</span>
+            </li>
+            <li class="w3-light-grey w3-padding-24">
+                <button class="w3-button w3-black w3-round-large">Sign Up</button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="w3-third w3-margin-bottom">
+        <ul class="w3-ul w3-border w3-center w3-hover-shadow">
+            <li class="w3-dark-grey w3-xlarge w3-padding-32">Fit</li>
+            <li class="w3-padding-16"><b>Hasta 5 clases</b> a la semana</li>
+            <li class="w3-padding-16"><b>Plan Nutricional</b> a la medida</li>
+            <li class="w3-padding-16"><b>10% Descuento</b> en suplementos</li>
+            <li class="w3-padding-16"><b>Reprograma tus clases</b><br> Sin Costo</li>
+            <li class="w3-padding-16">
+                <h2 class="w3-wide">Q500</h2>
+                <span class="w3-opacity">Al Mes</span>
+            </li>
+            <li class="w3-light-grey w3-padding-24">
+                <button class="w3-button w3-black w3-round-large">Sign Up</button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="w3-third w3-margin-bottom">
+        <ul class="w3-ul w3-border w3-center w3-hover-shadow">
+            <li class="w3-black w3-xlarge w3-padding-32">Beast</li>
+            <li class="w3-padding-16"><b>Más de 5 clases</b> a la semana</li>
+            <li class="w3-padding-16"><b>Plan Nutricional</b> a la medida</li>
+            <li class="w3-padding-16"><b>20% Descuento</b> en suplementos</li>
+            <li class="w3-padding-16"><b>Entrenador Personal</b></li>
+            <li class="w3-padding-16"><b>Reprograma tus clases</b><br> Sin Costo</li>
+            <li class="w3-padding-16">
+                <h2 class="w3-wide">Q750</h2>
+                <span class="w3-opacity">Al Mes</span>
+            </li>
+            <li class="w3-light-grey w3-padding-24">
+                <button class="w3-button w3-black w3-round-large">Sign Up</button>
+            </li>
+        </ul>
+    </div>
+  </div>
+
 
 <footer class="w3-container w3-padding-32 w3-light-grey w3-center">
     <h4>GYMY</h4>
-    <a href="#" class="w3-button w3-black w3-margin"><i class="fa fa-arrow-up w3-margin-right"></i>Ir al inicio</a>
+    <a href="#" class="w3-button w3-black w3-round-large"><i class="fa fa-arrow-up w3-margin-right"></i>Ir al inicio</a>
     <div class="w3-xlarge w3-section">
-      <i class="fa fa-linkedin w3-hover-opacity"></i>
+        <a href="https://www.linkedin.com/in/cardoesteban/" target="_blank"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
     </div>
     <p>Find the github repo <a href="https://github.com/cateban" title="W3.CSS" target="_blank" class="w3-hover-text-green">here</a></p>
-  </footer>
+</footer>
 
   {% endblock %}
 
