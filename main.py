@@ -117,7 +117,7 @@ def main():
         except:
             devuelta = 'Dirección Inválida. Prueba con otra'
             return render_template('index.html' , gyms_template = devuelta , mapatrue = 'nomapa.html',
-                                    user_filter='Todas las categorías')
+                                    dropdown='Todas las categorías')
 
     else:
         return render_template('index.html', gyms_template = '', mapatrue = 'nomapa.html', dropdown='Todas las categorías')
