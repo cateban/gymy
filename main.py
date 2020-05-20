@@ -95,12 +95,13 @@ def main():
                             """.format(display_df.names[i],display_df.phone[i],display_df.address[i],
                                     display_df.web[i],display_df.category[i])
 
-                            
+                    icongym = folium.features.CustomIcon('/Users/EstebanCardona/Documents/gymy/static/gymyicon.png', 
+                                         icon_size=(40,40))        
                     iframe = folium.IFrame(html=htmlpopup, width=225, height=125)
                     popup = folium.Popup(iframe)
 
                     folium.Marker([display_df.lat[i],display_df.long[i]], popup=popup, 
-                                tooltip = display_df.names[i], icon = folium.Icon(color='red')).add_to(mapa)
+                                tooltip = display_df.names[i], icon = icongym).add_to(mapa)
                 mapa.save('templates/{}.html'.format(direccion_solicitud))
                 #mapa.save(PATH+'/templates/{}.html'.format(direccion_solicitud))  -> For pythonanywhere
 
@@ -118,10 +119,6 @@ def main():
                 devuelta = 'No hay Gymys cerca'
                 return render_template('index.html' , gyms_template = devuelta , mapatrue = 'nomapa.html',
                                     dropdown='Todas las categorías')
-
-
-                
-
 
         except:
             devuelta = 'Dirección Inválida. Prueba con otra'
