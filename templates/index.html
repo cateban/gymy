@@ -16,30 +16,21 @@
 
 <body>
 
-<!-- Links (sit on top) -->
-<div class="w3-top">
-    <div class="w3-row w3-large w3-light-grey">
-        <div class="w3-col s3">
-            <a href="#" class="w3-button w3-block">Inicio</a>
-        </div>
-
-        <div class="w3-col s3">
-            <a href="#plans" class="w3-button w3-block">Planes</a>
-        </div>
-    </div>
-</div>
-
 <!-- Content -->
-<div class="w3-content" style="max-width:1100px;margin-top:80px;margin-bottom:80px">
-
-    <div class="w3-panel">
-        <h1><b>GYMY</b></h1>
-        <h2>No más excusas.</h2>
+<div class="w3-content" style="max-width:1100px;margin-top:30px;margin-bottom:80px">
+    <div class="w3-panel w3-center">
+        <img src="static/gymy.png" alt="gymy" style='padding:1px;  width: 20%; height: 20%'>
+            <div class = "w3-light-grey w3-center">
+            <h3>La plataforma digital que te ayuda a lograr tus objetivos. </h3>
+            <p> Accede a la red de GYMYs que estén cerca de tu zona de interés.<br> 
+                Programa tu espacio en sus instalaciones según el plan al que te suscribas. <br>
+                Yoga, natación, musculación y mucho más. Con GYMY puedes lograrlo. </p>
+            </div>
     </div>
 
     <div class="w3-center w3-padding-64">
         <form class="w3-container w3-card-4 w3-light-grey" id='submit_params' method="POST" action="{{ url_for('main') }}">              
-            <label>¿Por donde querés hacer ejercicio?</label> 
+            <h6>¿Por donde querés hacer ejercicio?</h6> 
             <p>
                 <input class="w3-input w3-border-0 w3-round-large" type="text"  placeholder="Ingresa una zona" id="input_usuario"
                         name="input_usuario" value="{{input_usuario}}"><br>
@@ -57,9 +48,33 @@
                         <option>Natación</option>
                         <option>Pilates</option>
                         <option>Yoga</option>
-                        <option>Otros</option>
+                        <option>Ajedrez</option>
+                        <option>Aviacion</option>
+                        <option>Baloncesto</option>
+                        <option>Beisbol</option>
+                        <option>Billar</option>
+                        <option>Boliche</option>
+                        <option>Boxeo</option>
+                        <option>Calistenia</option>
+                        <option>Ciclismo</option>
+                        <option>Escalada</option>
+                        <option>Esgrima</option>
+                        <option>Funcional</option>
+                        <option>Futbol</option>
+                        <option>Gimnasia</option>
+                        <option>Golf</option>
+                        <option>Pentatlon moderno</option>
+                        <option>Pole Fitness</option>
+                        <option>Remo</option>
+                        <option>Spinning</option>
+                        <option>TRX</option>
+                        <option>Tenis</option>
+                        <option>Tenis de mesa</option>
+                        <option>Pole Fitness</option>
+                        <option>Voleibol</option>
+                        <option>Zumba</option>
                     </select>
-                    </div>
+                </div>
             </p>
             <p>
                 <button class="w3-button w3-black w3-round-large" type="submit">¡Buscame un gymy!</button>
@@ -85,9 +100,9 @@
             <li class="w3-padding-16"><b>3 clases</b> a la semana</li>
             <li class="w3-padding-16"><b>Aseoría</b> en nutrición</li>
             <li class="w3-padding-16"><b>Asesoría</b> en suplementos</li>
-            <li class="w3-padding-16">Reprograma tus clases</li>
+            <li class="w3-padding-16">Reprograma tus clases<br>*Costo</li>
             <li class="w3-padding-16">
-                <h2 class="w3-wide">Q200</h2>
+                <h2 class="w3-wide">Q300</h2>
                 <span class="w3-opacity">Al Mes</span>
             </li>
             <li class="w3-light-grey w3-padding-24">
@@ -104,7 +119,7 @@
             <li class="w3-padding-16"><b>10% Descuento</b> en suplementos</li>
             <li class="w3-padding-16"><b>Reprograma tus clases</b><br> Sin Costo</li>
             <li class="w3-padding-16">
-                <h2 class="w3-wide">Q500</h2>
+                <h2 class="w3-wide">Q450</h2>
                 <span class="w3-opacity">Al Mes</span>
             </li>
             <li class="w3-light-grey w3-padding-24">
@@ -119,10 +134,9 @@
             <li class="w3-padding-16"><b>Más de 5 clases</b> a la semana</li>
             <li class="w3-padding-16"><b>Plan Nutricional</b> a la medida</li>
             <li class="w3-padding-16"><b>20% Descuento</b> en suplementos</li>
-            <li class="w3-padding-16"><b>Entrenador Personal</b></li>
             <li class="w3-padding-16"><b>Reprograma tus clases</b><br> Sin Costo</li>
             <li class="w3-padding-16">
-                <h2 class="w3-wide">Q750</h2>
+                <h2 class="w3-wide">Q600</h2>
                 <span class="w3-opacity">Al Mes</span>
             </li>
             <li class="w3-light-grey w3-padding-24">
@@ -139,7 +153,7 @@
     <div class="w3-xlarge w3-section">
         <a href="https://www.linkedin.com/in/cardoesteban/" target="_blank"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
     </div>
-    <p>Find the github repo <a href="https://github.com/cateban" title="W3.CSS" target="_blank" class="w3-hover-text-green">here</a></p>
+    <p>Encuentra el repo de github <a href="https://github.com/cateban" title="W3.CSS" target="_blank" class="w3-hover-text-green">aquí</a></p>
 </footer>
 
   {% endblock %}
