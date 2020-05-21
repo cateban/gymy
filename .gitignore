@@ -10,3 +10,5 @@ Untitled.ipynb
 main_test.py
 mientras.py
 geocagetoken.txt
+.vscode/
+__pycache__/
