@@ -1,4 +1,4 @@
-# <img src="/Users/EstebanCardona/Documents/gymy/static/gymy.png" alt="gymy" style="zoom:20%;" />
+# <img src="static/gymy.png" width=200 />
 
 The next project is the development of an MVP for a business dedicated to locating places of physical activity in Guatemala City, Guatemala. The general idea is based on making strategic alliances with different establishments that allow the influx of people subscribed to GYMY.
 
@@ -50,7 +50,7 @@ After testing with Flask in local and verifying that everything was working prop
 
 You can check it out at http://cardoesteban.pythonanywhere.com/
 
-![](/Users/EstebanCardona/Documents/gymy/static/GymyFinalV2.gif)
+![](static/GymyFinalV2.gif)
 
 
 
