@@ -1,14 +1,5 @@
 .DS_Store
-categorias.ipynb
-Getting Lat Long.ipynb
-Main.ipynb
-Mongo Conection.ipynb
-Paginas Amarillas  - Obtención de datos.ipynb
-Paginas Amarillas - Final.ipynb
-Scraping - Gym Data.ipynb
-Untitled.ipynb
-main_test.py
-mientras.py
 geocagetoken.txt
 .vscode/
 __pycache__/
+.DS_Store
