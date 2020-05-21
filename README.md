@@ -22,7 +22,7 @@ The main code requires user input and the category in which you want to search t
 - Geopy
 - Os
 
-### In order to achieve the main result, I'm folowing 6 steps:
+### In order to achieve the main result, I'm folowing 4 steps:
 
 #### Step 1 - Getting the data
 
